@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UserSqlContext>((opt) => opt.UseSqlServer(builder.Configuration.GetConnectionString("sql")));
 builder.Services.AddScoped<IUserService, SqlUserService>();
+builder.Services.AddScoped<IUserMongoDbService, MongoDbUserService>();
 
 var app = builder.Build();
 

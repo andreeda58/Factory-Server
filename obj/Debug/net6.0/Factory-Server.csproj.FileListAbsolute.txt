@@ -242,3 +242,16 @@ C:\Users\97253\Desktop\Factory54\Factory-Server\obj\Debug\net6.0\refint\Factory-
 C:\Users\97253\Desktop\Factory54\Factory-Server\obj\Debug\net6.0\Factory-Server.pdb
 C:\Users\97253\Desktop\Factory54\Factory-Server\obj\Debug\net6.0\Factory-Server.genruntimeconfig.cache
 C:\Users\97253\Desktop\Factory54\Factory-Server\obj\Debug\net6.0\ref\Factory-Server.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\AWSSDK.Core.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\AWSSDK.SecurityToken.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\DnsClient.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\MongoDB.Bson.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\MongoDB.Driver.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\MongoDB.Driver.Core.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\SharpCompress.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\Snappier.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\ZstdSharp.dll
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
+C:\Users\97253\Desktop\Factory54\Factory-Server\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll

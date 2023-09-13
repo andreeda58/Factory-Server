@@ -23,7 +23,7 @@ namespace Factory_Server.Controllers
 
         // GET: api/UserSql
         [HttpGet]
-        [Route("/getAllUsers")]
+        [Route("getAllUsers")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
           if (_context.Users == null)
@@ -86,7 +86,7 @@ namespace Factory_Server.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 
         [HttpPost]
-        [Route("/addUser")]
+        [Route("addUser")]
         public async Task<ActionResult<User>> PostUser(User user)
         {
           if (_context.Users == null)
