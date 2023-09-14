@@ -1,4 +1,5 @@
 ﻿using Factory_Server.Models;
+using Factory_Server.Services;
 using Factory_Server.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ namespace Factory_Server.Controllers
     [ApiController]
     public class MongoUserController : ControllerBase
     {
-        private readonly IUserMongoDbService _mongodbService;
+        private readonly MongoDbUserService _mongodbService;
 
-        public MongoUserController(IUserMongoDbService mongodbService)
+        public MongoUserController(MongoDbUserService mongodbService)
         {
             _mongodbService = mongodbService;
         }
@@ -29,9 +30,8 @@ namespace Factory_Server.Controllers
         // POST api/<MongoUserController>
         [HttpPost]
         [Route("addUser")]
-        public void Post()
+        public void Post(User newUser)
         {
-            User newUser = new User() { Id = 1, Age = 25, Name = "andree", LastName = "del aguila", Job = "programer" };
             _mongodbService.AddUser(newUser);
         }
       

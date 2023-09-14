@@ -12,19 +12,18 @@ namespace Factory_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserSqlController : ControllerBase
+    public class SqlUserController : ControllerBase
     {
         private readonly UserSqlContext _context;
 
-        public UserSqlController(UserSqlContext context)
+        public SqlUserController(UserSqlContext context)
         {
             _context = context;
         }
 
-        // GET: api/UserSql
+        // GET: api/SqlUser
         [HttpGet]
-        [Route("getAllUsers")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
           if (_context.Users == null)
           {
@@ -33,7 +32,7 @@ namespace Factory_Server.Controllers
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/UserSql/5
+        // GET: api/SqlUser/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
@@ -51,7 +50,7 @@ namespace Factory_Server.Controllers
             return user;
         }
 
-        // PUT: api/UserSql/5
+        // PUT: api/SqlUser/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
@@ -82,11 +81,9 @@ namespace Factory_Server.Controllers
             return NoContent();
         }
 
-        // POST: api/UserSql
+        // POST: api/SqlUser
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-
         [HttpPost]
-        [Route("addUser")]
         public async Task<ActionResult<User>> PostUser(User user)
         {
           if (_context.Users == null)
@@ -99,7 +96,7 @@ namespace Factory_Server.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/UserSql/5
+        // DELETE: api/SqlUser/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
