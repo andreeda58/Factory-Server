@@ -14,6 +14,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UserSqlContext>((opt) => opt.UseSqlServer(builder.Configuration.GetConnectionString("sql")));
 builder.Services.AddScoped<IUserService, SqlUserService>();
 builder.Services.AddScoped<MongoDbUserService>();
+builder.Services.AddScoped<OracleUserService>();
+
+var proveedor = builder.Services.BuildServiceProvider();
+var configution = proveedor.GetRequiredService<IConfiguration>(); ;
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
+});
+
+
 
 
 var app = builder.Build();
@@ -25,7 +35,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthorization();
 

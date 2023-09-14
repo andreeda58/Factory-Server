@@ -21,9 +21,11 @@ namespace Factory_Server.Controllers
             _context = context;
         }
 
+
         // GET: api/SqlUser
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        [Route("getAllUsers")]
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
           if (_context.Users == null)
           {
@@ -31,60 +33,12 @@ namespace Factory_Server.Controllers
           }
             return await _context.Users.ToListAsync();
         }
-
-        // GET: api/SqlUser/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            var user = await _context.Users.FindAsync(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
-        }
-
-        // PUT: api/SqlUser/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+     
 
         // POST: api/SqlUser
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        [Route("addUser")]
+        public async Task<ActionResult<User>> AddUser(User user)
         {
           if (_context.Users == null)
           {
@@ -94,26 +48,6 @@ namespace Factory_Server.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        }
-
-        // DELETE: api/SqlUser/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
-        {
-            if (_context.Users == null)
-            {
-                return NotFound();
-            }
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool UserExists(int id)

@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Factory_Server.Services
 {
-    public class OracleUserService:IUserService
+    public class OracleUserService
     {
         private readonly IConfiguration _configuration;
         private string connectionString;

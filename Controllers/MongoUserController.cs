@@ -21,18 +21,18 @@ namespace Factory_Server.Controllers
         // GET: api/<MongoUserController>
         [HttpGet]
         [Route("getAllUsers")]
-        public IEnumerable<User> Get()
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
-           return _mongodbService.GetAllUsers();
+           return _mongodbService.GetAllUsers().ToList();
         }
      
 
         // POST api/<MongoUserController>
         [HttpPost]
         [Route("addUser")]
-        public void Post(User newUser)
+        public  User AddUser( User user)
         {
-            _mongodbService.AddUser(newUser);
+           return _mongodbService.AddUser(user);
         }
       
     }

@@ -1,6 +1,7 @@
 ﻿using Factory_Server.Contexts;
 using Factory_Server.Models;
 using Factory_Server.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Factory_Server.Services
 {
@@ -13,19 +14,23 @@ namespace Factory_Server.Services
             _userSqlContetx = userSqlContetx;
         }
 
-        public User AddUser(User newUser)
+
+        public async Task AddUser(User newUser)
         {
             _userSqlContetx.Users.Add(newUser);
-            _userSqlContetx.SaveChanges();
+           await _userSqlContetx.SaveChangesAsync();
 
-            return newUser;
+          
+
+
         }
 
-        public IEnumerable<User> GetAllUsers()
+
+
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
-           return _userSqlContetx.Users;
+            var users = await _userSqlContetx.Users.ToListAsync();
+            return users;
         }
-
-       
     }
 }

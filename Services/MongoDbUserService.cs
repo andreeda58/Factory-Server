@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Factory_Server.Services
 {
-    public class MongoDbUserService : IUserService
+    public class MongoDbUserService : IUserMongoDbService
     {
         private readonly IConfiguration _configuration;
         private MongoClient _mongoClient = null;
@@ -27,18 +27,14 @@ namespace Factory_Server.Services
         {
             if(newUser != null)
             {
-
                 _userTable.InsertOne(newUser);
-                return newUser;
             }
-                _userTable.InsertOne(newUser);
 
             return newUser;
         }
 
         public IEnumerable<User> GetAllUsers()
         {
-           
             return _userTable.Find(FilterDefinition<User>.Empty).ToList();
         }
     }

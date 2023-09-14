@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Factory_Server.Models;
+using Factory_Server.Services;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,19 +10,26 @@ namespace Factory_Server.Controllers
     [ApiController]
     public class OracleUserController : ControllerBase
     {
+        private readonly OracleUserService _service;
+
+        public OracleUserController(OracleUserService service)
+        {
+            _service = service;
+        }
         // GET: api/<OracleUserController>
         [HttpGet]
         [Route("getAllUsers")]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+          return  _service.GetAllUsers();
         }
 
         // POST api/<OracleUserController>
         [HttpPost]
         [Route("addUser")]
-        public void Post([FromBody] string value)
+        public void Post(User newUser)
         {
+            _service.AddUser(newUser);
         }
        
     }
