@@ -17,10 +17,13 @@ builder.Services.AddScoped<MongoDbUserService>();
 builder.Services.AddScoped<OracleUserService>();
 
 var proveedor = builder.Services.BuildServiceProvider();
+var alloweedHosts = builder.Configuration.GetValue<string>("AlloweOrigin");
+
+
 var configution = proveedor.GetRequiredService<IConfiguration>(); ;
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod());
+    options.AddDefaultPolicy(builderData => builderData.WithOrigins(alloweedHosts).AllowAnyHeader().AllowAnyMethod());
 });
 
 
