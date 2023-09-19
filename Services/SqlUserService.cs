@@ -19,10 +19,6 @@ namespace Factory_Server.Services
         {
             _userSqlContetx.Users.Add(newUser);
            await _userSqlContetx.SaveChangesAsync();
-
-          
-
-
         }
 
 

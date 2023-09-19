@@ -23,19 +23,39 @@ namespace Factory_Server.Services
             
         }
 
-        public User AddUser(User newUser)
+        public bool AddUser(User newUser)
         {
-            if(newUser != null)
+            try
             {
-                _userTable.InsertOne(newUser);
+                if (newUser != null)
+                {
+                    _userTable.InsertOne(newUser);
+                    return true;
+                }
+                return false;
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+           
 
-            return newUser;
         }
 
         public IEnumerable<User> GetAllUsers()
         {
             return _userTable.Find(FilterDefinition<User>.Empty).ToList();
+        }
+
+        public async Task<IEnumerable<User>>GetAllUsersAsync()
+        {
+            return await Task.Run(GetAllUsers);
+        }
+
+        public async Task<bool> AddUserAsync(User newUser)
+        {
+            return await Task.Run(()=>AddUser(newUser));
         }
     }
 }
