@@ -7,25 +7,25 @@ namespace Factory_Server.Services
 {
     public class SqlUserService:IUserService
     {
-        private readonly UserSqlContext _userSqlContetx;
+        private readonly UserSqlContext _userSqlContext;
 
         public SqlUserService(UserSqlContext userSqlContetx)
         {
-            _userSqlContetx = userSqlContetx;
+            _userSqlContext = userSqlContetx;
         }
 
 
-        public async Task AddUser(User newUser)
+        public async Task AddUserAsync(User newUser)
         {
-            _userSqlContetx.Users.Add(newUser);
-           await _userSqlContetx.SaveChangesAsync();
+            _userSqlContext.Users.Add(newUser);
+           await _userSqlContext.SaveChangesAsync();
         }
 
 
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            var users = await _userSqlContetx.Users.ToListAsync();
+            var users = await _userSqlContext.Users.ToListAsync();
             return users;
         }
     }

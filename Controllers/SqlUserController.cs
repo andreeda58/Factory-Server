@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Factory_Server.Contexts;
 using Factory_Server.Models;
+using Factory_Server.Services.Interfaces;
 
 namespace Factory_Server.Controllers
 {
@@ -14,45 +15,29 @@ namespace Factory_Server.Controllers
     [ApiController]
     public class SqlUserController : ControllerBase
     {
-        private readonly UserSqlContext _context;
+        
+        private readonly IUserService _userSqlService;
 
-        public SqlUserController(UserSqlContext context)
-        {
-            _context = context;
-        }
+        public SqlUserController(IUserService userSqlService)=>_userSqlService = userSqlService;
 
 
         // GET: api/SqlUser
         [HttpGet]
         [Route("getAllUsers")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
-          if (_context.Users == null)
-          {
-              return NotFound();
-          }
-            return await _context.Users.ToListAsync();
+            return await _userSqlService.GetAllUsersAsync();
         }
      
 
         // POST: api/SqlUser
         [HttpPost]
         [Route("addUser")]
-        public async Task<ActionResult<User>> AddUser(User user)
+        public async Task AddUser(User user)
         {
-          if (_context.Users == null)
-          {
-              return Problem("Entity set 'UserSqlContext.Users'  is null.");
-          }
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+           await  _userSqlService.AddUserAsync(user);
         }
 
-        private bool UserExists(int id)
-        {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
+     
     }
 }

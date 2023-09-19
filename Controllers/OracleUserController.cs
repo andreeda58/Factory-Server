@@ -19,17 +19,17 @@ namespace Factory_Server.Controllers
         // GET: api/<OracleUserController>
         [HttpGet]
         [Route("getAllUsers")]
-        public IEnumerable<User> Get()
+        public async Task<IEnumerable<User>> Get()
         {
-          return  _service.GetAllUsers();
+          return await _service.GetAllUsersAsync();
         }
 
         // POST api/<OracleUserController>
         [HttpPost]
         [Route("addUser")]
-        public void Post(User newUser)
+        public async Task Post(User newUser)
         {
-            _service.AddUser(newUser);
+          await  _service.AddUserAsync(newUser);
         }
        
     }

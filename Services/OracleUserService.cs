@@ -66,5 +66,16 @@ namespace Factory_Server.Services
             }
             return UserDetails;
         }
+
+
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        {
+            return await Task.Run(GetAllUsers);
+        }
+
+        public async Task AddUserAsync(User newUser)
+        {
+            await Task.Run(()=>AddUser(newUser));
+        }
     }
 }
