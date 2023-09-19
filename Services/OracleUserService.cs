@@ -1,6 +1,8 @@
 ﻿using Factory_Server.Models;
 using Factory_Server.Services.Interfaces;
 using Microsoft.Data.SqlClient;
+using Oracle.ManagedDataAccess.Client;
+using System.Data;
 
 namespace Factory_Server.Services
 {
@@ -16,9 +18,23 @@ namespace Factory_Server.Services
                 connectionString = _configuration.GetConnectionString("oracle");
         }
 
-        public User AddUser(User newUser)
+        public void AddUser(User newUser)
         {
-            return newUser;
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+
+                OracleCommand command = new OracleCommand("Add_User_Procedure", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("id", OracleDbType.Int64).Value = newUser.Id;
+                command.Parameters.Add("name", OracleDbType.Varchar2).Value = newUser.Name;
+                command.Parameters.Add("lastName", OracleDbType.Varchar2).Value = newUser.LastName;
+                command.Parameters.Add("age", OracleDbType.Int64).Value = newUser.Age;
+                command.Parameters.Add("job", OracleDbType.Varchar2).Value = newUser.Job;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         public IEnumerable<User> GetAllUsers()
@@ -26,11 +42,11 @@ namespace Factory_Server.Services
             List<User> UserDetails = new List<User>();
 
             // Create a connection object
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (OracleConnection connection = new OracleConnection(connectionString))
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("SELECT * FROM [Users]", connection);
-                using (SqlDataReader dataReader = command.ExecuteReader())
+                OracleCommand command = new OracleCommand("SELECT * FROM [Users]", connection);
+                using (OracleDataReader dataReader = command.ExecuteReader())
                 {
                     // Go to the next result
                     while (dataReader.Read())
@@ -39,10 +55,10 @@ namespace Factory_Server.Services
                         User user = new User
                         {
                             Id = (int)dataReader["id"],
-                            Name = (string)dataReader["Name"],
-                            LastName = (string)dataReader["LastName"],
-                            Age = (int)dataReader["Quantity"],
-                            Job = (string)dataReader["Job"]
+                            Name = (string)dataReader["name"],
+                            LastName = (string)dataReader["lastName"],
+                            Age = (int)dataReader["aage"],
+                            Job = (string)dataReader["job"]
                         };
                         UserDetails.Add(user);
                     }
